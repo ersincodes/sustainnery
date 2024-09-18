@@ -2,7 +2,7 @@ import { TabData } from '@/types/management-types';
 
 export const chemicalManagementData: TabData[] = [
     {
-        title: 'Kimyasal Tedarikçi Kayıt Sistemi',
+        title: 'Kimyasal Tedarikçi Kayıt',
         data: [
             {
                 id: 1,
@@ -63,7 +63,7 @@ export const chemicalManagementData: TabData[] = [
         dateField: 'registrationDate',
     },
     {
-        title: 'Kimyasal Tedarikçi İletişim Tablosu',
+        title: 'Kimyasal Tedarikçi İletişim',
         data: [
             { id: 1, supplierName: 'ChemCorp Inc.', contactDate: '2023-11-02', contactType: 'E-posta', subject: 'Yeni MSDS Talebi', response: 'Tamamlandı', followUpDate: '2023-11-09' },
             { id: 2, supplierName: 'EcoChemicals GmbH', contactDate: '2023-11-06', contactType: 'Telefon', subject: 'Teslimat Gecikmesi', response: 'Devam Ediyor', followUpDate: '2023-11-13' },
@@ -167,7 +167,7 @@ export const chemicalManagementData: TabData[] = [
         dateField: 'approvalDate',
     },
     {
-        title: 'VOC içeren Kimyasal Kayıt Sistemi',
+        title: 'VOC içeren Kimyasal Kayıt',
         data: [
             { id: 1, chemicalName: 'Aseton', casNumber: '67-64-1', vocContent: 100, unit: '%', usageArea: 'Temizlik', monthlyUsage: 50, usageUnit: 'L', recordDate: '2023-11-01' },
             { id: 2, chemicalName: 'Bütil Asetat', casNumber: '123-86-4', vocContent: 100, unit: '%', usageArea: 'Kaplama', monthlyUsage: 75, usageUnit: 'L', recordDate: '2023-11-05' },
@@ -210,7 +210,7 @@ export const chemicalManagementData: TabData[] = [
         dateField: 'recordDate',
     },
     {
-        title: 'Krom Kimyasalı Kayıt Sistemi',
+        title: 'Krom Kimyasalı Kayıt',
         data: [
             { id: 1, month: 'Ocak 2023', totalVocEmission: 500, unit: 'kg', mainSources: 'Boyama, Temizlik', reductionMeasures: 'Düşük VOC Boyalar', complianceStatus: 'Uyumlu' },
             { id: 2, month: 'Şubat 2023', totalVocEmission: 480, unit: 'kg', mainSources: 'Kaplama, Yapıştırma', reductionMeasures: 'Proses Optimizasyonu', complianceStatus: 'Uyumlu' },
