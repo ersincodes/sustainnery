@@ -1,4 +1,4 @@
-import ComponentsDashboardAnalytics from '@/components/dashboard/dashboard-analytics';
+import ComponentsDashboardAnalytics from '@/components/dashboard/DasboardAnalyticsComponent';
 import { Metadata } from 'next';
 import React from 'react';
 

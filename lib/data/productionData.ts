@@ -1,14 +1,4 @@
-export interface TabData {
-    title: string;
-    data: any[];
-    columns: {
-        accessor: string;
-        title: string;
-        sortable: boolean;
-    }[];
-    minAgeFilter?: string;
-    maxAgeFilter?: string;
-}
+import { TabData } from '@/types/management-types';
 
 //Production Data
 
@@ -33,6 +23,8 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'quantity',
         maxAgeFilter: 'quantity',
+        addEnabled: true,
+        dateField: 'date',
     },
     {
         title: 'Yarı Mamul Tedarikçi',
@@ -53,6 +45,8 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'quantity',
         maxAgeFilter: 'quantity',
+        addEnabled: true,
+        dateField: 'deliveryDate',
     },
     {
         title: 'Tabaklama',
@@ -75,6 +69,8 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'quantity',
         maxAgeFilter: 'quantity',
+        addEnabled: true,
+        dateField: 'startDate',
     },
     {
         title: 'Retenaj-Boyama',
@@ -97,6 +93,7 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'quantity',
         maxAgeFilter: 'quantity',
+        addEnabled: true,
     },
     {
         title: 'Gelen Fason İş',
@@ -119,6 +116,7 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'quantity',
         maxAgeFilter: 'quantity',
+        addEnabled: true,
     },
     {
         title: 'Giden Fason İş',
@@ -159,6 +157,7 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'quantity',
         maxAgeFilter: 'quantity',
+        addEnabled: true,
     },
     {
         title: 'Üretim Verileri',
@@ -181,6 +180,7 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'quantity',
         maxAgeFilter: 'quantity',
+        addEnabled: true,
     },
     {
         title: 'Krom Tüketimi',
@@ -202,6 +202,7 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'chromiumUsed',
         maxAgeFilter: 'chromiumUsed',
+        addEnabled: true,
     },
     {
         title: 'Cr203 ve Yağ Testleri',
@@ -223,73 +224,6 @@ export const productionData: TabData[] = [
         ],
         minAgeFilter: 'cr203Content',
         maxAgeFilter: 'cr203Content',
-    },
-];
-
-//Energy Data
-
-export const energyData: TabData[] = [
-    {
-        title: 'Enerji Kaynakları',
-        data: [
-            { id: 1, name: 'Ahmet Yılmaz', company: 'Deri A.Ş.', quality: 'A', quantity: 1000, price: 50, date: '2023-09-01' },
-            { id: 2, name: 'Ayşe Kara', company: 'Kaliteli Deri Ltd.', quality: 'B', quantity: 800, price: 45, date: '2023-09-05' },
-            { id: 3, name: 'Mehmet Demir', company: 'Anadolu Deri', quality: 'A', quantity: 1200, price: 55, date: '2023-09-10' },
-            { id: 4, name: 'Fatma Şahin', company: 'Marmara Leather', quality: 'C', quantity: 600, price: 40, date: '2023-09-15' },
-            { id: 5, name: 'Ali Öztürk', company: 'İstanbul Deri', quality: 'B', quantity: 900, price: 48, date: '2023-09-20' },
-        ],
-        columns: [
-            { accessor: 'id', title: 'ID', sortable: true },
-            { accessor: 'name', title: 'Tedarikçi Adı', sortable: true },
-            { accessor: 'company', title: 'Şirket', sortable: true },
-            { accessor: 'quality', title: 'Kalite', sortable: true },
-            { accessor: 'quantity', title: 'Miktar (adet)', sortable: true },
-            { accessor: 'price', title: 'Fiyat (TL)', sortable: true },
-            { accessor: 'date', title: 'Tarih', sortable: true },
-        ],
-        minAgeFilter: 'quantity',
-        maxAgeFilter: 'quantity',
-    },
-    {
-        title: 'Enerji Tüketimi',
-        data: [
-            { id: 1, productName: 'Yarı İşlenmiş Deri A', supplier: 'XYZ Kimya', quantity: 500, processStage: 'Tabaklama Öncesi', deliveryDate: '2023-10-01' },
-            { id: 2, productName: 'Yarı İşlenmiş Deri B', supplier: 'ABC Kimyasalları', quantity: 700, processStage: 'Boyama Öncesi', deliveryDate: '2023-10-05' },
-            { id: 3, productName: 'Yarı İşlenmiş Deri C', supplier: 'LMN Endüstri', quantity: 600, processStage: 'Finisaj Öncesi', deliveryDate: '2023-10-10' },
-            { id: 4, productName: 'Yarı İşlenmiş Deri D', supplier: 'PQR Chemicals', quantity: 800, processStage: 'Tabaklama Öncesi', deliveryDate: '2023-10-15' },
-            { id: 5, productName: 'Yarı İşlenmiş Deri E', supplier: 'EFG Endüstriyel', quantity: 550, processStage: 'Boyama Öncesi', deliveryDate: '2023-10-20' },
-        ],
-        columns: [
-            { accessor: 'id', title: 'ID', sortable: true },
-            { accessor: 'productName', title: 'Ürün Adı', sortable: true },
-            { accessor: 'supplier', title: 'Tedarikçi', sortable: true },
-            { accessor: 'quantity', title: 'Miktar', sortable: true },
-            { accessor: 'processStage', title: 'İşlem Aşaması', sortable: true },
-            { accessor: 'deliveryDate', title: 'Teslim Tarihi', sortable: true },
-        ],
-        minAgeFilter: 'quantity',
-        maxAgeFilter: 'quantity',
-    },
-    {
-        title: 'Enerji Skoru',
-        data: [
-            { id: 1, batchNo: 'TB001', leatherType: 'Sığır Derisi', quantity: 1000, tannin: 'Krom', startDate: '2023-11-01', endDate: '2023-11-05', status: 'Tamamlandı' },
-            { id: 2, batchNo: 'TB002', leatherType: 'Keçi Derisi', quantity: 800, tannin: 'Bitkisel', startDate: '2023-11-03', endDate: '2023-11-08', status: 'Devam Ediyor' },
-            { id: 3, batchNo: 'TB003', leatherType: 'Koyun Derisi', quantity: 1200, tannin: 'Krom', startDate: '2023-11-05', endDate: '2023-11-10', status: 'Başlamadı' },
-            { id: 4, batchNo: 'TB004', leatherType: 'Sığır Derisi', quantity: 900, tannin: 'Sentetik', startDate: '2023-11-07', endDate: '2023-11-12', status: 'Devam Ediyor' },
-            { id: 5, batchNo: 'TB005', leatherType: 'Keçi Derisi', quantity: 700, tannin: 'Krom', startDate: '2023-11-09', endDate: '2023-11-14', status: 'Başlamadı' },
-        ],
-        columns: [
-            { accessor: 'id', title: 'ID', sortable: true },
-            { accessor: 'batchNo', title: 'Parti No', sortable: true },
-            { accessor: 'leatherType', title: 'Deri Tipi', sortable: true },
-            { accessor: 'quantity', title: 'Miktar', sortable: true },
-            { accessor: 'tannin', title: 'Tabaklama Maddesi', sortable: true },
-            { accessor: 'startDate', title: 'Başlangıç Tarihi', sortable: true },
-            { accessor: 'endDate', title: 'Bitiş Tarihi', sortable: true },
-            { accessor: 'status', title: 'Durum', sortable: true },
-        ],
-        minAgeFilter: 'quantity',
-        maxAgeFilter: 'quantity',
+        addEnabled: true,
     },
 ];
