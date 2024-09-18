@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Metadata } from 'next';
-import WasteWaterTable from './WaterTable';
+import WasteWaterTable from './WasteWaterTable';
 
 export const metadata: Metadata = {
-    title: 'Water Management',
+    title: 'Waste Water Management',
 };
 
 export default function WaterPage() {

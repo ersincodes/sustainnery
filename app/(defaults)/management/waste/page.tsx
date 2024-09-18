@@ -1,15 +1,15 @@
 import { Suspense } from 'react';
 import { Metadata } from 'next';
-import WasteWaterTable from './WaterTable';
+import WasteTable from './WasteTable';
 
 export const metadata: Metadata = {
-    title: 'Water Management',
+    title: 'Waste Management',
 };
 
-export default function WaterPage() {
+export default function WastePage() {
     return (
         <Suspense fallback={<div>Loading dashboard...</div>}>
-            <WasteWaterTable />
+            <WasteTable />
         </Suspense>
     );
 }

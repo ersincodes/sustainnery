@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Metadata } from 'next';
-import EnergyDashBoard from './EnergyDashboard';
+import EnergyTable from './EnergyTable';
 
 export const metadata: Metadata = {
     title: 'Energy Management',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function EnergyPage() {
     return (
         <Suspense fallback={<div>Loading dashboard...</div>}>
-            <EnergyDashBoard />
+            <EnergyTable />
         </Suspense>
     );
 }
