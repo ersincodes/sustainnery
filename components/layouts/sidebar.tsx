@@ -70,13 +70,11 @@ const Sidebar = () => {
             <nav
                 className={`sidebar fixed bottom-0 top-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
             >
-                <div className="h-full bg-white dark:bg-black">
-                    <div className="flex items-center justify-between px-4 py-3">
-                        <Link href="/" className="main-logo flex shrink-0 items-center">
-                            <img className="ml-[5px] w-8 flex-none" src="/assets/images/logo.svg" alt="logo" />
-                            <span className="align-middle text-2xl font-semibold dark:text-white-light lg:inline ltr:ml-1.5 rtl:mr-1.5">VRISTO</span>
+                <div className="flex h-full flex-col bg-white dark:bg-black">
+                    <div className="mb-5 mt-5 flex h-10 flex-shrink-0 items-center justify-between px-5">
+                        <Link href="/" className="main-logo flex items-center justify-center">
+                            <img className="h-auto w-44" src="/assets/images/logo.png" alt="Sustainnery" />
                         </Link>
-
                         <button
                             type="button"
                             className="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 dark:text-white-light dark:hover:bg-dark-light/10 rtl:rotate-180"
@@ -85,254 +83,256 @@ const Sidebar = () => {
                             <IconCaretsDown className="m-auto rotate-90" />
                         </button>
                     </div>
-                    <PerfectScrollbar className="relative h-[calc(100vh-80px)]">
-                        <ul className="relative space-y-0.5 p-4 py-0 font-semibold">
-                            <li className="menu nav-item">
-                                <button type="button" className={`${currentMenu === 'dashboard' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('dashboard')}>
-                                    <div className="flex items-center">
-                                        <IconMenuDashboard className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('dashboard')}</span>
-                                    </div>
+                    <div className="flex-grow overflow-y-auto">
+                        <PerfectScrollbar className="relative h-[calc(100vh-80px)]">
+                            <ul className="relative space-y-0.5 p-4 py-0 font-semibold">
+                                <li className="menu nav-item">
+                                    <button type="button" className={`${currentMenu === 'dashboard' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('dashboard')}>
+                                        <div className="flex items-center">
+                                            <IconMenuDashboard className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('dashboard')}</span>
+                                        </div>
 
-                                    <div className={currentMenu !== 'dashboard' ? '-rotate-90 rtl:rotate-90' : ''}>
-                                        <IconCaretDown />
-                                    </div>
-                                </button>
+                                        <div className={currentMenu !== 'dashboard' ? '-rotate-90 rtl:rotate-90' : ''}>
+                                            <IconCaretDown />
+                                        </div>
+                                    </button>
 
-                                <AnimateHeight duration={300} height={currentMenu === 'dashboard' ? 'auto' : 0}>
-                                    <ul className="sub-menu text-gray-500">
-                                        <li>
-                                            <Link href="/">{t('analytics')}</Link>
-                                        </li>
-                                    </ul>
-                                </AnimateHeight>
-                            </li>
+                                    <AnimateHeight duration={300} height={currentMenu === 'dashboard' ? 'auto' : 0}>
+                                        <ul className="sub-menu text-gray-500">
+                                            <li>
+                                                <Link href="/">{t('analytics')}</Link>
+                                            </li>
+                                        </ul>
+                                    </AnimateHeight>
+                                </li>
 
-                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
-                                <IconMinus className="hidden h-5 w-4 flex-none" />
-                                <span>{t('Management')}</span>
-                            </h2>
+                                <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                                    <IconMinus className="hidden h-5 w-4 flex-none" />
+                                    <span>{t('Management')}</span>
+                                </h2>
 
-                            <li className="nav-item">
-                                <ul>
-                                    <li className="nav-item">
-                                        <Link href="/management/production" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('production_management')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/management/energy" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('energy_management')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/management/water" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('water_management')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/management/waste" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('waste_management')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/management/waste-water" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('waste_water_management')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/management/rsl" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('rsl_management')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-
-                                    <li className="nav-item">
-                                        <Link href="/management/chemical" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('chemical_management')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
-                                <IconMinus className="hidden h-5 w-4 flex-none" />
-                                <span>{t('objectives')}</span>
-                            </h2>
-
-                            <li className="menu nav-item">
-                                <Link href="/charts" className="group">
-                                    <div className="flex items-center">
-                                        <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('objective_definition')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-
-                            <li className="menu nav-item">
-                                <Link href="/widgets" className="group">
-                                    <div className="flex items-center">
-                                        <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('tracking_forms')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-
-                            <li className="menu nav-item">
-                                <Link href="/font-icons" className="group">
-                                    <div className="flex items-center">
-                                        <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('objective_oriented_operations')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-
-                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
-                                <IconMinus className="hidden h-5 w-4 flex-none" />
-                                <span>{t('user_and_pages')}</span>
-                            </h2>
-
-                            <li className="menu nav-item">
-                                <button type="button" className={`${currentMenu === 'users' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('users')}>
-                                    <div className="flex items-center">
-                                        <IconMenuUsers className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('users')}</span>
-                                    </div>
-
-                                    <div className={currentMenu !== 'users' ? '-rotate-90 rtl:rotate-90' : ''}>
-                                        <IconCaretDown />
-                                    </div>
-                                </button>
-
-                                <AnimateHeight duration={300} height={currentMenu === 'users' ? 'auto' : 0}>
-                                    <ul className="sub-menu text-gray-500">
-                                        <li>
-                                            <Link href="/users/profile">{t('profile')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/users/user-account-settings">{t('account_settings')}</Link>
-                                        </li>
-                                    </ul>
-                                </AnimateHeight>
-                            </li>
-
-                            <li className="menu nav-item">
-                                <button type="button" className={`${currentMenu === 'auth' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('auth')}>
-                                    <div className="flex items-center">
-                                        <IconMenuAuthentication className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('authentication')}</span>
-                                    </div>
-
-                                    <div className={currentMenu !== 'auth' ? '-rotate-90 rtl:rotate-90' : ''}>
-                                        <IconCaretDown />
-                                    </div>
-                                </button>
-
-                                <AnimateHeight duration={300} height={currentMenu === 'auth' ? 'auto' : 0}>
-                                    <ul className="sub-menu text-gray-500">
-                                        <li>
-                                            <Link href="/auth/boxed-signin" target="_blank">
-                                                {t('login_boxed')}
+                                <li className="nav-item">
+                                    <ul>
+                                        <li className="nav-item">
+                                            <Link href="/management/production" className="group">
+                                                <div className="flex items-center">
+                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('production_management')}</span>
+                                                </div>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/auth/boxed-signup" target="_blank">
-                                                {t('register_boxed')}
+                                        <li className="nav-item">
+                                            <Link href="/management/energy" className="group">
+                                                <div className="flex items-center">
+                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('energy_management')}</span>
+                                                </div>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/auth/boxed-lockscreen" target="_blank">
-                                                {t('unlock_boxed')}
+                                        <li className="nav-item">
+                                            <Link href="/management/water" className="group">
+                                                <div className="flex items-center">
+                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('water_management')}</span>
+                                                </div>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/auth/boxed-password-reset" target="_blank">
-                                                {t('recover_id_boxed')}
+                                        <li className="nav-item">
+                                            <Link href="/management/waste" className="group">
+                                                <div className="flex items-center">
+                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('waste_management')}</span>
+                                                </div>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/auth/cover-login" target="_blank">
-                                                {t('login_cover')}
+                                        <li className="nav-item">
+                                            <Link href="/management/waste-water" className="group">
+                                                <div className="flex items-center">
+                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('waste_water_management')}</span>
+                                                </div>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/auth/cover-register" target="_blank">
-                                                {t('register_cover')}
+                                        <li className="nav-item">
+                                            <Link href="/management/rsl" className="group">
+                                                <div className="flex items-center">
+                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('rsl_management')}</span>
+                                                </div>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="/auth/cover-lockscreen" target="_blank">
-                                                {t('unlock_cover')}
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/auth/cover-password-reset" target="_blank">
-                                                {t('recover_id_cover')}
+
+                                        <li className="nav-item">
+                                            <Link href="/management/chemical" className="group">
+                                                <div className="flex items-center">
+                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('chemical_management')}</span>
+                                                </div>
                                             </Link>
                                         </li>
                                     </ul>
-                                </AnimateHeight>
-                            </li>
-                            <li className="menu nav-item">
-                                <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
-                                    <div className="flex items-center">
-                                        <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('documentation')}</span>
-                                    </div>
-                                </Link>
-                            </li>
+                                </li>
 
-                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
-                                <IconMinus className="hidden h-5 w-4 flex-none" />
-                                <span>{t('legal_requirements')}</span>
-                            </h2>
+                                <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                                    <IconMinus className="hidden h-5 w-4 flex-none" />
+                                    <span>{t('objectives')}</span>
+                                </h2>
 
-                            <li className="menu nav-item">
-                                <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
-                                    <div className="flex items-center">
-                                        <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('business_permissions')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-                            <li className="menu nav-item">
-                                <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
-                                    <div className="flex items-center">
-                                        <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('periodic_inspection')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-                            <li className="menu nav-item">
-                                <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
-                                    <div className="flex items-center">
-                                        <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('calibration')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-                        </ul>
-                    </PerfectScrollbar>
+                                <li className="menu nav-item">
+                                    <Link href="/charts" className="group">
+                                        <div className="flex items-center">
+                                            <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('objective_definition')}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+
+                                <li className="menu nav-item">
+                                    <Link href="/widgets" className="group">
+                                        <div className="flex items-center">
+                                            <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('tracking_forms')}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+
+                                <li className="menu nav-item">
+                                    <Link href="/font-icons" className="group">
+                                        <div className="flex items-center">
+                                            <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('objective_oriented_operations')}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+
+                                <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                                    <IconMinus className="hidden h-5 w-4 flex-none" />
+                                    <span>{t('user_and_pages')}</span>
+                                </h2>
+
+                                <li className="menu nav-item">
+                                    <button type="button" className={`${currentMenu === 'users' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('users')}>
+                                        <div className="flex items-center">
+                                            <IconMenuUsers className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('users')}</span>
+                                        </div>
+
+                                        <div className={currentMenu !== 'users' ? '-rotate-90 rtl:rotate-90' : ''}>
+                                            <IconCaretDown />
+                                        </div>
+                                    </button>
+
+                                    <AnimateHeight duration={300} height={currentMenu === 'users' ? 'auto' : 0}>
+                                        <ul className="sub-menu text-gray-500">
+                                            <li>
+                                                <Link href="/users/profile">{t('profile')}</Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/users/user-account-settings">{t('account_settings')}</Link>
+                                            </li>
+                                        </ul>
+                                    </AnimateHeight>
+                                </li>
+
+                                <li className="menu nav-item">
+                                    <button type="button" className={`${currentMenu === 'auth' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('auth')}>
+                                        <div className="flex items-center">
+                                            <IconMenuAuthentication className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('authentication')}</span>
+                                        </div>
+
+                                        <div className={currentMenu !== 'auth' ? '-rotate-90 rtl:rotate-90' : ''}>
+                                            <IconCaretDown />
+                                        </div>
+                                    </button>
+
+                                    <AnimateHeight duration={300} height={currentMenu === 'auth' ? 'auto' : 0}>
+                                        <ul className="sub-menu text-gray-500">
+                                            <li>
+                                                <Link href="/auth/boxed-signin" target="_blank">
+                                                    {t('login_boxed')}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/auth/boxed-signup" target="_blank">
+                                                    {t('register_boxed')}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/auth/boxed-lockscreen" target="_blank">
+                                                    {t('unlock_boxed')}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/auth/boxed-password-reset" target="_blank">
+                                                    {t('recover_id_boxed')}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/auth/cover-login" target="_blank">
+                                                    {t('login_cover')}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/auth/cover-register" target="_blank">
+                                                    {t('register_cover')}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/auth/cover-lockscreen" target="_blank">
+                                                    {t('unlock_cover')}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/auth/cover-password-reset" target="_blank">
+                                                    {t('recover_id_cover')}
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </AnimateHeight>
+                                </li>
+                                <li className="menu nav-item">
+                                    <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
+                                        <div className="flex items-center">
+                                            <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('documentation')}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+
+                                <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                                    <IconMinus className="hidden h-5 w-4 flex-none" />
+                                    <span>{t('legal_requirements')}</span>
+                                </h2>
+
+                                <li className="menu nav-item">
+                                    <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
+                                        <div className="flex items-center">
+                                            <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('business_permissions')}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+                                <li className="menu nav-item">
+                                    <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
+                                        <div className="flex items-center">
+                                            <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('periodic_inspection')}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+                                <li className="menu nav-item">
+                                    <Link href="https://vristo.sbthemes.com" target="_blank" className="nav-link group">
+                                        <div className="flex items-center">
+                                            <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
+                                            <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('calibration')}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </PerfectScrollbar>
+                    </div>
                 </div>
             </nav>
         </div>
