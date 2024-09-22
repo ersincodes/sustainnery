@@ -1,7 +1,5 @@
 import { TabData } from '@/types/management-types';
 
-//Production Data
-
 export const productionData: TabData[] = [
     {
         title: 'Ham Deri Tedarikçi',

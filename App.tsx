@@ -1,16 +1,17 @@
 'use client';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import store, { IRootState } from '@/store';
+import { Provider } from 'react-redux';
+import { store } from '@/store'; // Update this import to match your new store file
 import { toggleRTL, toggleTheme, toggleMenu, toggleLayout, toggleAnimation, toggleNavbar, toggleSemidark } from '@/store/themeConfigSlice';
 import Loading from '@/components/layouts/loading';
 import { getTranslation } from '@/i18n';
 import { ModalManager } from './components/modals/ModalManager';
 import { ModalProvider } from './components/modals/ModalProvider';
+import { useAppDispatch, useAppSelector } from './hooks/useRedux'; // Import the typed hooks
 
-function App({ children }: PropsWithChildren) {
-    const themeConfig = useSelector((state: IRootState) => state.themeConfig);
-    const dispatch = useDispatch();
+function AppContent({ children }: PropsWithChildren) {
+    const themeConfig = useAppSelector((state) => state.themeConfig);
+    const dispatch = useAppDispatch();
     const { initLocale } = getTranslation();
     const [isLoading, setIsLoading] = useState(true);
 
@@ -29,22 +30,28 @@ function App({ children }: PropsWithChildren) {
     }, [dispatch, initLocale, themeConfig.theme, themeConfig.menu, themeConfig.layout, themeConfig.rtlClass, themeConfig.animation, themeConfig.navbar, themeConfig.locale, themeConfig.semidark]);
 
     return (
+        <div
+            className={`${(themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${
+                themeConfig.rtlClass
+            } main-section relative font-nunito text-sm font-normal antialiased`}
+        >
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <>
+                    {children}
+                    <ModalManager />
+                </>
+            )}
+        </div>
+    );
+}
+
+function App({ children }: PropsWithChildren) {
+    return (
         <Provider store={store}>
             <ModalProvider>
-                <div
-                    className={`${(themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${
-                        themeConfig.rtlClass
-                    } main-section relative font-nunito text-sm font-normal antialiased`}
-                >
-                    {isLoading ? (
-                        <Loading />
-                    ) : (
-                        <>
-                            {children}
-                            <ModalManager />
-                        </>
-                    )}
-                </div>
+                <AppContent>{children}</AppContent>
             </ModalProvider>
         </Provider>
     );

@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TabData } from '@/types/management-types';
-import { fetchWaterData } from '@/services/water/waterService';
+import { fetchChemicalData } from '@/services/chemical/chemicalService';
 
-interface WaterState {
+interface ChemicalState {
     data: TabData[];
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
 
-const initialState: WaterState = {
+const initialState: ChemicalState = {
     data: [],
     status: 'idle',
     error: null,
@@ -31,7 +31,7 @@ const transformToTabData = (apiData: any): TabData[] => {
         // If it's a single object, wrap it in an array
         return [
             {
-                title: apiData.title || 'Water Data',
+                title: apiData.title || 'Chemical Data',
                 data: apiData.data || [],
                 columns: apiData.columns || [],
                 addEnabled: apiData.addEnabled !== undefined ? apiData.addEnabled : true,
@@ -43,29 +43,29 @@ const transformToTabData = (apiData: any): TabData[] => {
     }
 };
 
-export const fetchWater = createAsyncThunk('water/fetchWater', async () => {
-    const response = await fetchWaterData();
+export const fetchChemical = createAsyncThunk('chemical/fetchChemical', async () => {
+    const response = await fetchChemicalData();
     return transformToTabData(response);
 });
 
-const waterSlice = createSlice({
-    name: 'water',
+const chemicalSlice = createSlice({
+    name: 'chemical',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchWater.pending, (state) => {
+            .addCase(fetchChemical.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchWater.fulfilled, (state, action: PayloadAction<TabData[]>) => {
+            .addCase(fetchChemical.fulfilled, (state, action: PayloadAction<TabData[]>) => {
                 state.status = 'succeeded';
                 state.data = action.payload;
             })
-            .addCase(fetchWater.rejected, (state, action) => {
+            .addCase(fetchChemical.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message ?? 'An unknown error occurred';
             });
     },
 });
 
-export default waterSlice.reducer;
+export default chemicalSlice.reducer;
