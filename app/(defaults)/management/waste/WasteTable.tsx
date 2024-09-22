@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import GenericTableComponent from '@/components/datatables/GenericTableComponent';
