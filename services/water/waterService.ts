@@ -1,3 +1,3 @@
 import { fetchData } from '../baseService';
 
-export const fetchWaterData = () => fetchData('/water');
+export const fetchWaterData = () => fetchData('/Water');

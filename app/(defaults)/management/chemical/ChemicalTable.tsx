@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import GenericTableComponent from '@/components/datatables/GenericTableComponent';
@@ -5,8 +6,7 @@ import { fetchChemical } from '@/store/chemical/chemicalSlice';
 
 export default function ChemicalTable() {
     const dispatch = useAppDispatch();
-    const chemicalData = useAppSelector((state) => state.chemical.data);
-    const status = useAppSelector((state) => state.energy.status);
+    const { data: tabsData, status, error } = useAppSelector((state) => state.chemical);
 
     useEffect(() => {
         if (status === 'idle') {
@@ -19,8 +19,8 @@ export default function ChemicalTable() {
     }
 
     if (status === 'failed') {
-        return <div>Error loading chemical data</div>;
+        return <div>Error loading Chemical data: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={chemicalData} moduleName="Chemical" />;
+    return <GenericTableComponent tabsData={tabsData} moduleName="Chemical" />;
 }

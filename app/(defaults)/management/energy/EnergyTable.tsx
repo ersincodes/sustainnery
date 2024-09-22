@@ -1,12 +1,12 @@
+'use client';
 import React, { useEffect } from 'react';
 import { fetchEnergy } from '@/store/energy/energySlice';
 import GenericTableComponent from '@/components/datatables/GenericTableComponent';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 
 export default function EnergyTable() {
     const dispatch = useAppDispatch();
-    const energyData = useAppSelector((state) => state.energy.data);
-    const status = useAppSelector((state) => state.energy.status);
+    const { data: tabsData, status, error } = useAppSelector((state) => state.energy);
 
     useEffect(() => {
         if (status === 'idle') {
@@ -19,8 +19,8 @@ export default function EnergyTable() {
     }
 
     if (status === 'failed') {
-        return <div>Error loading energy data</div>;
+        return <div>Error loading Energy data: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={energyData} moduleName="Energy" />;
+    return <GenericTableComponent tabsData={tabsData} moduleName="Energy" />;
 }
