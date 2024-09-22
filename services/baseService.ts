@@ -1,34 +1,17 @@
-import api from './api';
+import axios from 'axios';
 
-export class BaseService {
-    protected endpoint: string;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    constructor(endpoint: string) {
-        this.endpoint = endpoint;
-    }
+export const api = axios.create({
+    baseURL: BASE_URL,
+});
 
-    async getAll() {
-        const response = await api.get(this.endpoint);
+export const fetchData = async (endpoint: string) => {
+    try {
+        const response = await api.get(endpoint);
         return response.data;
+    } catch (error) {
+        console.error(`Error fetching data from ${endpoint}:`, error);
+        throw error;
     }
-
-    async getById(id: string) {
-        const response = await api.get(`${this.endpoint}/${id}`);
-        return response.data;
-    }
-
-    async create(data: any) {
-        const response = await api.post(this.endpoint, data);
-        return response.data;
-    }
-
-    async update(id: string, data: any) {
-        const response = await api.put(`${this.endpoint}/${id}`, data);
-        return response.data;
-    }
-
-    async delete(id: string) {
-        const response = await api.delete(`${this.endpoint}/${id}`);
-        return response.data;
-    }
-}
+};

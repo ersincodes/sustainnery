@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TabData } from '@/types/management-types';
-import { fetchWaterData } from '@/services/water/waterService';
+import { fetchRSLData } from '@/services/rsl/rslService';
 
-interface WaterState {
+interface RSLState {
     data: TabData[];
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
 
-const initialState: WaterState = {
+const initialState: RSLState = {
     data: [],
     status: 'idle',
     error: null,
@@ -31,7 +31,7 @@ const transformToTabData = (apiData: any): TabData[] => {
         // If it's a single object, wrap it in an array
         return [
             {
-                title: apiData.title || 'Water Data',
+                title: apiData.title || 'RSL Data',
                 data: apiData.data || [],
                 columns: apiData.columns || [],
                 addEnabled: apiData.addEnabled !== undefined ? apiData.addEnabled : true,
@@ -43,29 +43,29 @@ const transformToTabData = (apiData: any): TabData[] => {
     }
 };
 
-export const fetchWater = createAsyncThunk('water/fetchWater', async () => {
-    const response = await fetchWaterData();
+export const fetchRSL = createAsyncThunk('rsl/fetchRSL', async () => {
+    const response = await fetchRSLData();
     return transformToTabData(response);
 });
 
-const waterSlice = createSlice({
-    name: 'water',
+const rslSlice = createSlice({
+    name: 'rsl',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchWater.pending, (state) => {
+            .addCase(fetchRSL.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchWater.fulfilled, (state, action: PayloadAction<TabData[]>) => {
+            .addCase(fetchRSL.fulfilled, (state, action: PayloadAction<TabData[]>) => {
                 state.status = 'succeeded';
                 state.data = action.payload;
             })
-            .addCase(fetchWater.rejected, (state, action) => {
+            .addCase(fetchRSL.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message ?? 'An unknown error occurred';
             });
     },
 });
 
-export default waterSlice.reducer;
+export default rslSlice.reducer;

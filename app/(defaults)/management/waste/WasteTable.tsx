@@ -1,7 +1,25 @@
-'use client';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import GenericTableComponent from '@/components/datatables/GenericTableComponent';
-import { wasteManagementData } from '@/lib/data/wasteData';
+import { fetchWaste } from '@/store/waste/wasteSlice';
 
 export default function WasteTable() {
-    return <GenericTableComponent tabsData={wasteManagementData} moduleName="Waste" />;
+    const dispatch = useAppDispatch();
+    const { data: tabsData, status, error } = useAppSelector((state) => state.waste);
+
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchWaste());
+        }
+    }, [status, dispatch]);
+
+    if (status === 'loading') {
+        return <div>Loading...</div>;
+    }
+
+    if (status === 'failed') {
+        return <div>Error loading waste data: {error}</div>;
+    }
+
+    return <GenericTableComponent tabsData={tabsData} moduleName="Waste" />;
 }

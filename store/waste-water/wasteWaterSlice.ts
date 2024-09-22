@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TabData } from '@/types/management-types';
-import { fetchWaterData } from '@/services/water/waterService';
+import { fetchWasteWaterData } from '@/services/waste-water/wasteWaterService';
 
-interface WaterState {
+interface WasteWaterState {
     data: TabData[];
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
 
-const initialState: WaterState = {
+const initialState: WasteWaterState = {
     data: [],
     status: 'idle',
     error: null,
@@ -31,7 +31,7 @@ const transformToTabData = (apiData: any): TabData[] => {
         // If it's a single object, wrap it in an array
         return [
             {
-                title: apiData.title || 'Water Data',
+                title: apiData.title || 'Waste Water Data',
                 data: apiData.data || [],
                 columns: apiData.columns || [],
                 addEnabled: apiData.addEnabled !== undefined ? apiData.addEnabled : true,
@@ -43,29 +43,29 @@ const transformToTabData = (apiData: any): TabData[] => {
     }
 };
 
-export const fetchWater = createAsyncThunk('water/fetchWater', async () => {
-    const response = await fetchWaterData();
+export const fetchWasteWater = createAsyncThunk('wasteWater/fetchWasteWater', async () => {
+    const response = await fetchWasteWaterData();
     return transformToTabData(response);
 });
 
-const waterSlice = createSlice({
-    name: 'water',
+const wasteWaterSlice = createSlice({
+    name: 'wasteWater',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchWater.pending, (state) => {
+            .addCase(fetchWasteWater.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchWater.fulfilled, (state, action: PayloadAction<TabData[]>) => {
+            .addCase(fetchWasteWater.fulfilled, (state, action: PayloadAction<TabData[]>) => {
                 state.status = 'succeeded';
                 state.data = action.payload;
             })
-            .addCase(fetchWater.rejected, (state, action) => {
+            .addCase(fetchWasteWater.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message ?? 'An unknown error occurred';
             });
     },
 });
 
-export default waterSlice.reducer;
+export default wasteWaterSlice.reducer;
