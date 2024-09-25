@@ -22,5 +22,5 @@ export default function EnergyTable() {
         return <div>Error loading Energy data: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={tabsData} moduleName="Energy" />;
+    return <GenericTableComponent data={tabsData} moduleName="Energy" />;
 }

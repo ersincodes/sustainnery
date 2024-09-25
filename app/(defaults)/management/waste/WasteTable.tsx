@@ -22,5 +22,5 @@ export default function WasteTable() {
         return <div>Error loading waste data: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={tabsData} moduleName="Waste" />;
+    return <GenericTableComponent data={tabsData} moduleName="Waste" />;
 }
