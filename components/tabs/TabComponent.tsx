@@ -17,9 +17,9 @@ interface FilterState {
     maxAge: string;
 }
 
-export default function TabComponent({ tabsData, onRowClick, onAddClick }: TabComponentProps) {
+export default function TabComponent({ tabsData = [], onRowClick, onAddClick }: TabComponentProps) {
     const [selectedTab, setSelectedTab] = useState(0);
-    const [filters, setFilters] = useState<FilterState[]>(
+    const [filters, setFilters] = useState<FilterState[]>(() =>
         tabsData.map(() => ({
             dateRange: [],
             search: '',
@@ -38,16 +38,16 @@ export default function TabComponent({ tabsData, onRowClick, onAddClick }: TabCo
 
     const filteredData = useMemo(() => {
         return tabsData.map((tab, index) => {
-            const { dateRange, search, minAge, maxAge } = filters[index];
-            let filtered = [...tab.data];
+            const { dateRange, search, minAge, maxAge } = filters[index] || {};
+            let filtered = [...(tab.data || [])];
 
-            if (dateRange.length === 2) {
+            if (dateRange && dateRange.length === 2) {
                 const startDate = new Date(dateRange[0]);
                 const endDate = new Date(dateRange[1]);
                 startDate.setHours(0, 0, 0, 0);
                 endDate.setHours(23, 59, 59, 999);
                 filtered = filtered.filter((item) => {
-                    const itemDate = new Date(item[tab.dateField || 'disposalDate']);
+                    const itemDate = new Date(item[tab.dateField || 'testDate']);
                     return itemDate >= startDate && itemDate <= endDate;
                 });
             }
@@ -73,6 +73,10 @@ export default function TabComponent({ tabsData, onRowClick, onAddClick }: TabCo
             return filtered;
         });
     }, [tabsData, filters]);
+
+    if (tabsData.length === 0) {
+        return <div>No data available</div>;
+    }
 
     return (
         <div className="w-full">

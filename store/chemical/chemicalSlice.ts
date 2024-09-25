@@ -1,51 +1,120 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TabData } from '@/types/management-types';
-import { fetchChemicalData } from '@/services/chemical/chemicalService';
+import { fetchChemicalSupplierContactsData, fetchChemicalInventoriesData, fetchChemicalChangesData, fetchVocFollowingsData, fetchChromiumConsumptionsData } from '@/services/chemical/chemicalService';
 
 interface ChemicalState {
-    data: TabData[];
+    chemicalSupplierContacts: TabData;
+    chemicalInventories: TabData;
+    chemicalChanges: TabData;
+    vocFollowings: TabData;
+    chromiumConsumptions: TabData;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
 
 const initialState: ChemicalState = {
-    data: [],
+    chemicalSupplierContacts: { title: 'Chemical Supplier Contacts', data: [], columns: [] },
+    chemicalInventories: { title: 'Chemical Inventories', data: [], columns: [] },
+    chemicalChanges: { title: 'Chemical Changes', data: [], columns: [] },
+    vocFollowings: { title: 'VOC Followings', data: [], columns: [] },
+    chromiumConsumptions: { title: 'Chromium Consumptions', data: [], columns: [] },
     status: 'idle',
     error: null,
 };
 
-// This function transforms the API data into the TabData format
-const transformToTabData = (apiData: any): TabData[] => {
-    // Check if apiData is an array (multiple tabs) or an object (single tab)
-    if (Array.isArray(apiData)) {
-        return apiData.map((tabData) => ({
-            title: tabData.title || 'Unnamed Tab',
-            data: tabData.data || [],
-            columns: tabData.columns || [],
-            addEnabled: tabData.addEnabled !== undefined ? tabData.addEnabled : true,
-            dateField: tabData.dateField || 'date',
-            minAgeFilter: tabData.minAgeFilter,
-            maxAgeFilter: tabData.maxAgeFilter,
-        }));
-    } else {
-        // If it's a single object, wrap it in an array
-        return [
-            {
-                title: apiData.title || 'Chemical Data',
-                data: apiData.data || [],
-                columns: apiData.columns || [],
-                addEnabled: apiData.addEnabled !== undefined ? apiData.addEnabled : true,
-                dateField: apiData.dateField || 'date',
-                minAgeFilter: apiData.minAgeFilter,
-                maxAgeFilter: apiData.maxAgeFilter,
-            },
-        ];
-    }
-};
+export const fetchChemicalSupplierContacts = createAsyncThunk('chemical/fetchChemicalSupplierContacts', async () => {
+    const response = await fetchChemicalSupplierContactsData();
+    return {
+        title: 'Chemical Supplier Contacts',
+        data: response.data,
+        columns: [
+            { accessor: 'supplierName', title: 'Supplier Name', sortable: true },
+            { accessor: 'contactDate', title: 'Contact Date', sortable: true },
+            { accessor: 'contactType', title: 'Contact Type', sortable: true },
+            { accessor: 'contactPerson', title: 'Contact Person', sortable: true },
+            { accessor: 'responseDate', title: 'Response Date', sortable: true },
+            { accessor: 'sentBy', title: 'Sent By', sortable: true },
+            { accessor: 'acceptanceOrAddition', title: 'Acceptance/Addition', sortable: true },
+            { accessor: 'version', title: 'Version', sortable: true },
+            { accessor: 'rslMeetDate', title: 'RSL Meet Date', sortable: true },
+        ],
+        dateField: 'contactDate',
+    } as TabData;
+});
 
-export const fetchChemical = createAsyncThunk('chemical/fetchChemical', async () => {
-    const response = await fetchChemicalData();
-    return transformToTabData(response);
+export const fetchChemicalInventories = createAsyncThunk('chemical/fetchChemicalInventories', async () => {
+    const response = await fetchChemicalInventoriesData();
+    return {
+        title: 'Chemical Inventories',
+        data: response.data,
+        columns: [
+            { accessor: 'chemicalName', title: 'Chemical Name', sortable: true },
+            { accessor: 'process', title: 'Process', sortable: true },
+            { accessor: 'nature', title: 'Nature', sortable: true },
+            { accessor: 'manufacturer', title: 'Manufacturer', sortable: true },
+            { accessor: 'vendor', title: 'Vendor', sortable: true },
+            { accessor: 'mrslLevel', title: 'MRSL Level', sortable: true },
+            { accessor: 'usageAmountDuringAuditPeriodKg', title: 'Usage Amount (kg)', sortable: true },
+            { accessor: 'storageLocation', title: 'Storage Location', sortable: true },
+        ],
+    } as TabData;
+});
+
+export const fetchChemicalChanges = createAsyncThunk('chemical/fetchChemicalChanges', async () => {
+    const response = await fetchChemicalChangesData();
+    return {
+        title: 'Chemical Changes',
+        data: response.data,
+        columns: [
+            { accessor: 'reviewDate', title: 'Review Date', sortable: true },
+            { accessor: 'process', title: 'Process', sortable: true },
+            { accessor: 'chemicalSubstanceInUse', title: 'Chemical In Use', sortable: true },
+            { accessor: 'recommendedChemicalSubstance', title: 'Recommended Chemical', sortable: true },
+            { accessor: 'changedRecipeNo', title: 'Changed Recipe No', sortable: true },
+            { accessor: 'newRecipeNo', title: 'New Recipe No', sortable: true },
+            { accessor: 'literatureInformation', title: 'Literature Info', sortable: true },
+            { accessor: 'msds', title: 'MSDS', sortable: true },
+            { accessor: 'test', title: 'Test', sortable: true },
+            { accessor: 'riskAnalysisPerformedBy', title: 'Risk Analysis By', sortable: true },
+            { accessor: 'approvedBy', title: 'Approved By', sortable: true },
+        ],
+        dateField: 'reviewDate',
+    } as TabData;
+});
+
+export const fetchVocFollowings = createAsyncThunk('chemical/fetchVocFollowings', async () => {
+    const response = await fetchVocFollowingsData();
+    return {
+        title: 'VOC Followings',
+        data: response.data,
+        columns: [
+            { accessor: 'fisinajChemicalName', title: 'Chemical Name', sortable: true },
+            { accessor: 'voc', title: 'VOC', sortable: true },
+            { accessor: 'date', title: 'Date', sortable: true },
+            { accessor: 'total', title: 'Total', sortable: true },
+            { accessor: 'pistole', title: 'Pistole', sortable: true },
+            { accessor: 'rollerCoat', title: 'Roller Coat', sortable: true },
+        ],
+        dateField: 'date',
+    } as TabData;
+});
+
+export const fetchChromiumConsumptions = createAsyncThunk('chemical/fetchChromiumConsumptions', async () => {
+    const response = await fetchChromiumConsumptionsData();
+    return {
+        title: 'Chromium Consumptions',
+        data: response.data,
+        columns: [
+            { accessor: 'date', title: 'Date', sortable: true },
+            { accessor: 'tankromAB', title: 'Tankrom AB', sortable: true },
+            { accessor: 'tankromSB', title: 'Tankrom SB', sortable: true },
+            { accessor: 'kromF24', title: 'Krom F24', sortable: true },
+            { accessor: 'ecoltan', title: 'Ecoltan', sortable: true },
+            { accessor: 'chromosolB', title: 'Chromosol B', sortable: true },
+            { accessor: 'total', title: 'Total', sortable: true },
+        ],
+        dateField: 'date',
+    } as TabData;
 });
 
 const chemicalSlice = createSlice({
@@ -54,16 +123,28 @@ const chemicalSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchChemical.pending, (state) => {
+            .addCase(fetchChemicalSupplierContacts.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchChemical.fulfilled, (state, action: PayloadAction<TabData[]>) => {
+            .addCase(fetchChemicalSupplierContacts.fulfilled, (state, action: PayloadAction<TabData>) => {
                 state.status = 'succeeded';
-                state.data = action.payload;
+                state.chemicalSupplierContacts = action.payload;
             })
-            .addCase(fetchChemical.rejected, (state, action) => {
+            .addCase(fetchChemicalSupplierContacts.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message ?? 'An unknown error occurred';
+            })
+            .addCase(fetchChemicalInventories.fulfilled, (state, action: PayloadAction<TabData>) => {
+                state.chemicalInventories = action.payload;
+            })
+            .addCase(fetchChemicalChanges.fulfilled, (state, action: PayloadAction<TabData>) => {
+                state.chemicalChanges = action.payload;
+            })
+            .addCase(fetchVocFollowings.fulfilled, (state, action: PayloadAction<TabData>) => {
+                state.vocFollowings = action.payload;
+            })
+            .addCase(fetchChromiumConsumptions.fulfilled, (state, action: PayloadAction<TabData>) => {
+                state.chromiumConsumptions = action.payload;
             });
     },
 });

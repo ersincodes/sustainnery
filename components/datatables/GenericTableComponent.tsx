@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import AddForm from '@/components/forms/AddFormComponent';
 import { Modal } from '@/components/modals/ModalComponent';
@@ -6,11 +8,11 @@ import { useModal } from '@/hooks/useModal';
 import { TabData } from '@/types/management-types';
 
 interface GenericTableProps {
-    tabsData: TabData[];
     moduleName: string;
+    data: TabData[];
 }
 
-export default function GenericTableComponent({ tabsData, moduleName }: GenericTableProps) {
+export default function GenericTableComponent({ moduleName, data }: GenericTableProps) {
     const { modalConfig, openModal, closeModal } = useModal();
 
     const handleRowClick = (rowData: any) => {
@@ -40,7 +42,7 @@ export default function GenericTableComponent({ tabsData, moduleName }: GenericT
 
     return (
         <>
-            <TabComponent tabsData={tabsData} onRowClick={handleRowClick} onAddClick={handleAddClick} />
+            <TabComponent tabsData={data} onRowClick={handleRowClick} onAddClick={handleAddClick} />
             {modalConfig && (
                 <Modal isOpen={!!modalConfig} onClose={closeModal} title={modalConfig.title}>
                     {modalConfig.content}

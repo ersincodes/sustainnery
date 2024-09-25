@@ -1,26 +1,34 @@
 'use client';
-import React, { useEffect } from 'react';
+
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { fetchRSLTests, fetchProductLines, fetchCustomers, fetchCustomerContacts, fetchCr6Tests } from '@/store/rsl/rslSlice';
 import GenericTableComponent from '@/components/datatables/GenericTableComponent';
-import { fetchRSL } from '@/store/rsl/rslSlice';
+import Loading from '@/components/layouts/loading';
 
 export default function RSLTable() {
     const dispatch = useAppDispatch();
-    const { data: tabsData, status, error } = useAppSelector((state) => state.rsl);
+    const { rslTests, productLines, customers, customerContacts, cr6Tests, status, error } = useAppSelector((state) => state.rsl);
 
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(fetchRSL());
+            dispatch(fetchRSLTests());
+            dispatch(fetchProductLines());
+            dispatch(fetchCustomers());
+            dispatch(fetchCustomerContacts());
+            dispatch(fetchCr6Tests());
         }
     }, [status, dispatch]);
 
     if (status === 'loading') {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (status === 'failed') {
-        return <div>Error loading RSL data: {error}</div>;
+        return <div>Error: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={tabsData} moduleName="RSL" />;
+    const tabsData = [rslTests, productLines, customers, customerContacts, cr6Tests];
+
+    return <GenericTableComponent moduleName="RSL" data={tabsData} />;
 }
