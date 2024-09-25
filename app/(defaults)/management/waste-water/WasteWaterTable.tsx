@@ -22,5 +22,5 @@ export default function WasteWaterTable() {
         return <div>Error loading waste water data: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={tabsData} moduleName="Waste Water" />;
+    return <GenericTableComponent data={tabsData} moduleName="Waste Water" />;
 }
