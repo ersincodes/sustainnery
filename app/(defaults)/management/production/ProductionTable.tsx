@@ -1,26 +1,46 @@
 'use client';
-import React, { useEffect } from 'react';
-import GenericTableComponent from '@/components/datatables/GenericTableComponent';
+
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
-import { fetchProduction } from '@/store/production/productionSlice';
+import {
+    fetchRawLeatherSuppliers,
+    fetchIntermediateGoodsSuppliers,
+    fetchTannings,
+    fetchRetannageDyeings,
+    fetchProductions,
+    fetchChromiumConsumptions,
+    fetchCr2o3OilTests,
+} from '@/store/production/productionSlice';
+import GenericTableComponent from '@/components/datatables/GenericTableComponent';
+import Loading from '@/components/layouts/loading';
 
 export default function ProductionTable() {
     const dispatch = useAppDispatch();
-    const { data: tabsData, status, error } = useAppSelector((state) => state.production);
+    const { rawLeatherSuppliers, intermediateGoodsSuppliers, tannings, retannageDyeings, productions, chromiumConsumptions, cr2o3OilTests, status, error } = useAppSelector(
+        (state) => state.production
+    );
 
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(fetchProduction());
+            dispatch(fetchRawLeatherSuppliers());
+            dispatch(fetchIntermediateGoodsSuppliers());
+            dispatch(fetchTannings());
+            dispatch(fetchRetannageDyeings());
+            dispatch(fetchProductions());
+            dispatch(fetchChromiumConsumptions());
+            dispatch(fetchCr2o3OilTests());
         }
     }, [status, dispatch]);
 
     if (status === 'loading') {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (status === 'failed') {
-        return <div>Error loading Production data: {error}</div>;
+        return <div>Error: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={tabsData} moduleName="Production" />;
+    const tabsData = [rawLeatherSuppliers, intermediateGoodsSuppliers, tannings, retannageDyeings, productions, chromiumConsumptions, cr2o3OilTests];
+
+    return <GenericTableComponent moduleName="Production" data={tabsData} />;
 }

@@ -1,26 +1,34 @@
 'use client';
-import React, { useEffect } from 'react';
+
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { fetchChemicalSupplierContacts, fetchChemicalInventories, fetchChemicalChanges, fetchVocFollowings, fetchChromiumConsumptions } from '@/store/chemical/chemicalSlice';
 import GenericTableComponent from '@/components/datatables/GenericTableComponent';
-import { fetchChemical } from '@/store/chemical/chemicalSlice';
+import Loading from '@/components/layouts/loading';
 
 export default function ChemicalTable() {
     const dispatch = useAppDispatch();
-    const { data: tabsData, status, error } = useAppSelector((state) => state.chemical);
+    const { chemicalSupplierContacts, chemicalInventories, chemicalChanges, vocFollowings, chromiumConsumptions, status, error } = useAppSelector((state) => state.chemical);
 
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(fetchChemical());
+            dispatch(fetchChemicalSupplierContacts());
+            dispatch(fetchChemicalInventories());
+            dispatch(fetchChemicalChanges());
+            dispatch(fetchVocFollowings());
+            dispatch(fetchChromiumConsumptions());
         }
     }, [status, dispatch]);
 
     if (status === 'loading') {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (status === 'failed') {
-        return <div>Error loading Chemical data: {error}</div>;
+        return <div>Error: {error}</div>;
     }
 
-    return <GenericTableComponent tabsData={tabsData} moduleName="Chemical" />;
+    const tabsData = [chemicalSupplierContacts, chemicalInventories, chemicalChanges, vocFollowings, chromiumConsumptions];
+
+    return <GenericTableComponent moduleName="Chemical" data={tabsData} />;
 }

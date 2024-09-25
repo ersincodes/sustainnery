@@ -33,7 +33,7 @@ const DatatableComponent: React.FC<DatatableComponentProps> = ({ data, columns, 
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-        columnAccessor: 'id',
+        columnAccessor: columns[0]?.accessor || 'id',
         direction: 'asc',
     });
 
@@ -74,16 +74,18 @@ const DatatableComponent: React.FC<DatatableComponentProps> = ({ data, columns, 
                             <input type="number" value={filters.maxAge} onChange={(e) => onFilterChange('maxAge', e.target.value)} className="form-input" placeholder={`Maximum ${maxAgeFilter}...`} />
                         </div>
                     )}
-                    <div className="mb-2 ml-auto">
-                        <DateRangePickerComponent onChange={handleDateRangeChange} value={filters.dateRange} />
-                    </div>
+                    {dateField && (
+                        <div className="mb-2 ml-auto">
+                            <DateRangePickerComponent onChange={handleDateRangeChange} value={filters.dateRange} />
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="datatables">
                 <DataTable
                     highlightOnHover
                     className="table-hover whitespace-nowrap"
-                    records={data}
+                    records={paginatedData}
                     columns={columns}
                     totalRecords={data.length}
                     recordsPerPage={pageSize}

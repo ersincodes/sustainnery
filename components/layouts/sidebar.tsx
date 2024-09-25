@@ -10,12 +10,21 @@ import IconCaretsDown from '@/components/icon/icon-carets-down';
 import IconMenuDashboard from '@/components/icon/menu/icon-menu-dashboard';
 import IconCaretDown from '@/components/icon/icon-caret-down';
 import IconMinus from '@/components/icon/icon-minus';
-import IconMenuFontIcons from '@/components/icon/menu/icon-menu-font-icons';
 import IconMenuUsers from '@/components/icon/menu/icon-menu-users';
 import IconMenuAuthentication from '@/components/icon/menu/icon-menu-authentication';
 import IconMenuDocumentation from '@/components/icon/menu/icon-menu-documentation';
 import { usePathname } from 'next/navigation';
 import { getTranslation } from '@/i18n';
+import IconWheel from '../icon/icon-wheel';
+import IconSun from '../icon/icon-sun';
+import IconTrash from '../icon/icon-trash';
+import IconTrashLines from '../icon/icon-trash-lines';
+import IconNotes from '../icon/icon-notes';
+import IconLayout from '../icon/icon-layout';
+import IconMultipleForwardRight from '../icon/icon-multiple-forward-right';
+import IconFile from '../icon/icon-file';
+import IconDroplet from '../icon/icon-droplet';
+import IconCpuBolt from '../icon/icon-cpu-bolt';
 
 const Sidebar = () => {
     const dispatch = useDispatch();
@@ -117,7 +126,7 @@ const Sidebar = () => {
                                         <li className="nav-item">
                                             <Link href="/management/production" className="group">
                                                 <div className="flex items-center">
-                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <IconWheel className="shrink-0 group-hover:!text-primary" />
                                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('production_management')}</span>
                                                 </div>
                                             </Link>
@@ -125,7 +134,7 @@ const Sidebar = () => {
                                         <li className="nav-item">
                                             <Link href="/management/energy" className="group">
                                                 <div className="flex items-center">
-                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <IconSun className="shrink-0 group-hover:!text-primary" />
                                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('energy_management')}</span>
                                                 </div>
                                             </Link>
@@ -133,7 +142,7 @@ const Sidebar = () => {
                                         <li className="nav-item">
                                             <Link href="/management/water" className="group">
                                                 <div className="flex items-center">
-                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <IconDroplet className="shrink-0 group-hover:!text-primary" />
                                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('water_management')}</span>
                                                 </div>
                                             </Link>
@@ -141,7 +150,7 @@ const Sidebar = () => {
                                         <li className="nav-item">
                                             <Link href="/management/waste" className="group">
                                                 <div className="flex items-center">
-                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <IconTrash className="shrink-0 group-hover:!text-primary" />
                                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('waste_management')}</span>
                                                 </div>
                                             </Link>
@@ -149,7 +158,7 @@ const Sidebar = () => {
                                         <li className="nav-item">
                                             <Link href="/management/waste-water" className="group">
                                                 <div className="flex items-center">
-                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <IconTrashLines className="shrink-0 group-hover:!text-primary" />
                                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('waste_water_management')}</span>
                                                 </div>
                                             </Link>
@@ -157,7 +166,7 @@ const Sidebar = () => {
                                         <li className="nav-item">
                                             <Link href="/management/rsl" className="group">
                                                 <div className="flex items-center">
-                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <IconNotes className="shrink-0 group-hover:!text-primary" />
                                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('rsl_management')}</span>
                                                 </div>
                                             </Link>
@@ -166,7 +175,7 @@ const Sidebar = () => {
                                         <li className="nav-item">
                                             <Link href="/management/chemical" className="group">
                                                 <div className="flex items-center">
-                                                    <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                                    <IconLayout className="shrink-0 group-hover:!text-primary" />
                                                     <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('chemical_management')}</span>
                                                 </div>
                                             </Link>
@@ -182,7 +191,7 @@ const Sidebar = () => {
                                 <li className="menu nav-item">
                                     <Link href="/charts" className="group">
                                         <div className="flex items-center">
-                                            <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                            <IconMultipleForwardRight className="shrink-0 group-hover:!text-primary" />
                                             <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('objective_definition')}</span>
                                         </div>
                                     </Link>
@@ -191,7 +200,7 @@ const Sidebar = () => {
                                 <li className="menu nav-item">
                                     <Link href="/widgets" className="group">
                                         <div className="flex items-center">
-                                            <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                            <IconFile className="shrink-0 group-hover:!text-primary" />
                                             <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('tracking_forms')}</span>
                                         </div>
                                     </Link>
@@ -200,7 +209,7 @@ const Sidebar = () => {
                                 <li className="menu nav-item">
                                     <Link href="/font-icons" className="group">
                                         <div className="flex items-center">
-                                            <IconMenuFontIcons className="shrink-0 group-hover:!text-primary" />
+                                            <IconCpuBolt className="shrink-0 group-hover:!text-primary" />
                                             <span className="text-black dark:text-[#506690] dark:group-hover:text-white-dark ltr:pl-3 rtl:pr-3">{t('objective_oriented_operations')}</span>
                                         </div>
                                     </Link>
